@@ -234,14 +234,12 @@ Top Director by Revenue:
 - **Data Freshness** — Movie data changes regularly. Re-run extraction periodically.
 - **Movie IDs** — Update `movie_ids` list in `extraction.py` based on your analysis needs.
 
-## 📄 License
-
-[Add your license here]
 
 ## 📧 Contact
+kabuemmanuel7@icloud.com
 
 For questions or issues, please open a GitHub issue or contact the project maintainer.
 
 ---
 
-**Last Updated:** December 8, 2025
+**Last Updated:** December 9, 2025
