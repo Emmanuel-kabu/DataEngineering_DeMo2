@@ -1,0 +1,84 @@
+{
+    "api": {
+        "tmdb": {
+            "base_url": "https://api.themoviedb.org/3/movie/",
+            "timeout_seconds": 30,
+            "max_retries": 3,
+            "delay_between_requests": 0.5,
+            "append_to_response": "credits"
+        }
+    },
+    "data_processing": {
+        "cleaning": {
+            "roi_threshold_musd": 10,
+            "high_nan_threshold": 10,
+            "columns_to_drop": [
+                "adult", 
+                "imdb_id", 
+                "original_title", 
+                "video", 
+                "homepage"
+            ],
+            "json_columns": [
+                "genres", 
+                "spoken_languages", 
+                "production_companies",
+                "production_countries", 
+                "belongs_to_collection"
+            ],
+            "replace_zero_columns": [
+                "budget", 
+                "revenue", 
+                "runtime"
+            ],
+            "text_placeholders": [
+                "No Data", 
+                "No overview available.", 
+                "None", 
+                "", 
+                "nan", 
+                "N/A"
+            ]
+        },
+        "kpi": {
+            "roi_analysis_threshold_musd": 10,
+            "profit_formula": "revenue_musd - budget_musd",
+            "roi_formula": "revenue_musd / budget_musd"
+        }
+    },
+    "file_paths": {
+        "raw_data": "rawextracted_tmdb_movies.csv",
+        "cleaned_data": "cleaned_tmdb_movies.csv",
+        "kpi_data": "movies_with_kpi.csv",
+        "analysis_report": "analysis_report.json",
+        "log_file": "tmdb_pipeline.log"
+    },
+    "default_movie_ids": [
+        299534, 19995, 140607, 299536, 597, 135397, 
+        420818, 24428, 168259, 99861, 284054, 12445, 
+        181808, 330457, 351286, 109445, 321612, 260513
+    ],
+    "logging": {
+        "level": "INFO",
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        "file_logging": true
+    },
+    "validation": {
+        "required_columns_post_cleaning": [
+            "id", 
+            "title", 
+            "budget_musd", 
+            "revenue_musd"
+        ],
+        "min_data_quality_score": 70.0
+    },
+    "documentation": {
+        "design_rationale": {
+            "roi_threshold": "Movies below $10M budget often have unreliable budget reporting and skew ROI calculations. This threshold captures mainstream theatrical releases with reliable data.",
+            "zero_replacement": "Zero budgets/revenues typically indicate missing data rather than actual zero values in the context of theatrical releases.",
+            "budget_revenue_conversion": "Converting to millions improves readability and reduces numerical precision issues in calculations.",
+            "vote_count_validation": "Movies with zero vote count have unreliable vote averages, so these are set to NaN for data quality.",
+            "text_placeholder_removal": "Common API patterns for missing text data are standardized to NaN for consistent handling."
+        }
+    }
+}

@@ -1,0 +1,81 @@
+# Final Report
+
+## Objective
+- Build a reproducible TMDB movie analytics pipeline to extract, clean, enrich, analyze, and visualize movie data, focusing on financial metrics and cast/crew insights.
+
+## Overview
+- End-to-end workflow: extraction, cleaning, KPI enrichment, analytics, and visualization.
+- Credits are parsed to expose cast, crew, directors, and their sizes.
+- KPIs add profit and ROI for financial views.
+- Outputs are stored locally as CSVs for portability and downstream use.
+
+## Methodology
+- Extraction: Fetch selected movie IDs and store raw responses.
+- Cleaning: Parse JSON-like fields, normalize data types, convert budget and revenue to millions, derive cast/crew/directors and size columns, drop noise, and reorder fields.
+- KPI Calculation: Compute profit and ROI; produce rankings.
+- Advanced Filtering: Actor/director filters with empty-result handling.
+- Visualization: Generate charts and plots from the enriched dataset.
+
+## Top Performing Movies
+- Highest Revenue: Avatar (2923.71 million)
+- Highest Budget: Avengers Endgame (356.0 million)
+- Highest Profit: Avatar (2686.71 million)
+- Best ROI: Avatar (12.34x return)
+- Most Voted: The Avengers (34,317 votes)
+- Highest Rated: Avengers Endgame (8.237 rating)
+- Most Popular: The Avengers (46.3567 popularity score)
+
+## Franchise vs Standalone Comparison
+- Franchise films show higher total revenue and investment but slightly lower median ROI compared to standalones.
+- Mean Revenue: Franchise 1682.67 million vs Standalone 1765.14 million
+- Median ROI: Franchise 7.79x vs Standalone 9.62x
+- Mean Popularity: Franchise 15.66 vs Standalone 19.32
+- Finding: Franchise films lead in popularity and total investment despite slightly lower median ROI.
+
+## Top Five Franchises by Revenue
+1. The Avengers Collection: 7776.07 million total (1944.02 million average per film)
+2. Star Wars Collection: 3400.92 million total (1700.46 million average per film)
+3. Jurassic Park Collection: 2982.01 million total (1491.00 million average per film)
+4. Avatar Collection: 2923.71 million total (2923.71 million average per film)
+5. Frozen Collection: 2727.90 million total (1363.95 million average per film)
+
+## Top Five Franchises by Rating
+1. Harry Potter Collection: 8.084
+2. The Avengers Collection: 7.903
+3. Avatar Collection: 7.594
+4. The Incredibles Collection: 7.455
+5. Black Panther Collection: 7.366
+
+## Top Directors by Revenue
+1. James Cameron: 5187.87 million total
+2. Anthony Russo and Joe Russo: 4851.85 million total
+3. Joss Whedon: 2924.22 million total
+4. Jennifer Lee and Chris Buck: 2727.90 million total
+5. J.J. Abrams: 2068.22 million total
+
+## Top Directors by Rating
+1. Anthony Russo and Joe Russo: 8.236 average
+2. David Yates: 8.084 average
+3. James Cameron: 7.749 average
+4. Joss Whedon: 7.571 average
+5. Brad Bird: 7.455 average
+
+## Most Prolific Directors
+1. Anthony Russo and Joe Russo: 2 movies
+2. James Cameron: 2 movies
+3. Jennifer Lee and Chris Buck: 2 movies
+4. Joss Whedon: 2 movies
+5. Multiple directors: 1 movie each
+
+## Key Observations
+- Avatar emerges as a revenue leader, generating the highest profit and ROI despite lower budget than Avengers Endgame.
+- Franchise films dominate revenue rankings with The Avengers Collection leading at 7.7 billion in total revenue.
+- Director collaborations such as Anthony Russo and Joe Russo, and Jennifer Lee with Chris Buck, deliver both high revenue and strong ratings.
+- Limited sci-fi genre representation in the curated dataset, with only one title present.
+
+
+-- 
+## Conclusions
+- The pipeline reliably normalizes TMDB data, enriches it with cast and crew signals, and surfaces financial KPIs suitable for franchise and director analysis.
+- Revenue concentration in major franchises validates the value of franchise IP in the film industry.
+- Director reputation correlates with both revenue and audience ratings

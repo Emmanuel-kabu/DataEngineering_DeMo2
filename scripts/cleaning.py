@@ -1,8 +1,18 @@
 import json 
 
 import ast
+import os
+import logging
 import numpy as np
 import pandas as pd
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 
 class MovieDataCleaner:
 
@@ -24,7 +34,7 @@ class MovieDataCleaner:
     def drop_columns(self):
         existing = [c for c in self.columns_to_drop if c in self.df.columns]
         self.df.drop(columns=existing, inplace=True)
-        print(f"Dropped columns: {existing}")
+        logger.info(f"Dropped columns: {existing}")
 
     
     # 2. PARSE JSON-LIKE FIELDS
@@ -52,9 +62,9 @@ class MovieDataCleaner:
         for col in self.json_columns:
             if col in self.df.columns:
                 self.df[col] = self.df[col].apply(self.parse_json)
-                print(f"Processed JSON column: {col}")
+                logger.info(f"Processed JSON column: {col}")
             else:
-                print(f"Skipped missing JSON column: {col}")
+                logger.info(f"Skipped missing JSON column: {col}")
 
     # 3. CONVERT DATATYPES
 
@@ -64,7 +74,7 @@ class MovieDataCleaner:
                 self.df[col] = pd.to_numeric(self.df[col], errors="coerce")
         if "release_date" in self.df.columns:
             self.df["release_date"] = pd.to_datetime(self.df["release_date"], errors="coerce")
-        print("Numeric + datetime conversions done.")
+        logger.info("Numeric + datetime conversions done.")
 
     # 4. HANDLE ZERO VALUES, BUDGET/REVENUE IN MILLIONS, VOTE FIXES
     def clean_numeric_fields(self):
@@ -80,7 +90,7 @@ class MovieDataCleaner:
 
         # Rename columns to indicate millions USD
         self.df.rename(columns={"budget": "budget_musd", "revenue": "revenue_musd"}, inplace=True)
-        print("Budget and Revenue converted to millions USD.")
+        logger.info("Budget and Revenue converted to millions USD.")
 
         # Vote count = 0 means vote_average unreliable
         if "vote_count" in self.df.columns and "vote_average" in self.df.columns:
@@ -243,24 +253,50 @@ class MovieDataCleaner:
     
 
 if __name__ == "__main__":
-    # Example usage
-    import os
+    """
+    Standalone execution for testing and development.
     
-    # Get the TMDB_movies_project directory 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_dir = os.path.dirname(script_dir)
-    data_dir = os.path.join(project_dir, 'data')
-    
-    # Create data directory if it doesn't exist
-    os.makedirs(data_dir, exist_ok=True)
-    
-    raw_csv_path = os.path.join(data_dir, 'rawextracted_tmdb_movies.csv')
-    cleaned_csv_path = os.path.join(data_dir, 'cleaned_tmdb_movies.csv')
-    
-    raw_data = pd.read_csv(raw_csv_path)
-    cleaner = MovieDataCleaner(raw_data)
-    cleaned_data = cleaner.clean()
-    cleaned_data.to_csv(cleaned_csv_path, index=False)
-    final_cols = cleaned_data.columns.tolist()
-    print(f"Final columns in cleaned data: {final_cols}")
-    print(f"Cleaned data saved to '{cleaned_csv_path}'.")   
+    This section demonstrates proper error handling and logging
+    when running the cleaner independently.
+    """
+    try:
+        # Configuration
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_dir = os.path.dirname(script_dir)
+        data_dir = os.path.join(project_dir, 'data')
+        
+        input_path = os.path.join(data_dir, 'rawextracted_tmdb_movies.csv')
+        output_path = os.path.join(data_dir, 'cleaned_tmdb_movies.csv')
+        
+        # Validate input file exists
+        if not os.path.exists(input_path):
+            logger.error(f"Input file not found: {input_path}")
+            logger.info("Please run extraction.py first to generate raw data")
+            exit(1)
+        
+        # Load and validate data
+        logger.info(f"Loading data from: {input_path}")
+        df = pd.read_csv(input_path)
+        
+        if df.empty:
+            raise ValueError("Input file contains no data")
+        
+        logger.info(f"Loaded {len(df)} rows, {len(df.columns)} columns")
+        
+        # Clean data
+        cleaner = MovieDataCleaner(df)
+        cleaned_df = cleaner.clean()
+        
+        # Save results
+        os.makedirs(data_dir, exist_ok=True)
+        cleaned_df.to_csv(output_path, index=False)
+        logger.info(f"Cleaned data saved to: {output_path}")
+        
+        # Summary statistics
+        logger.info(f"Final dataset: {len(cleaned_df)} rows, {len(cleaned_df.columns)} columns")
+        null_summary = (cleaned_df.notna().sum() / len(cleaned_df) * 100).round(1)
+        logger.info(f"Data completeness: {null_summary.to_dict()}")
+        
+    except Exception as e:
+        logger.error(f"Data cleaning process failed: {e}")
+        raise   

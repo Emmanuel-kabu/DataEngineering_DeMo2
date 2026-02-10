@@ -1,7 +1,23 @@
-numpy
-pandas
-requests
-notebook
-matplotlib
-seaborn
-python-dotenv
+# Core dependencies for TMDB Movie Analysis Pipeline
+pandas>=1.5.0
+requests>=2.28.0
+python-dotenv>=0.19.0
+numpy>=1.21.0
+
+# Data visualization
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# HTTP client enhancements
+urllib3>=1.26.0
+
+# Jupyter notebook support
+notebook>=6.4.0
+
+# Optional but recommended for better error handling
+typing-extensions>=4.0.0
+
+# Development dependencies (uncomment if needed)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
