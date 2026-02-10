@@ -83,7 +83,7 @@ TMDB_movies_project/
    - Edit `config.json` to customize behavior
    - Modify timeout settings, retry counts, movie IDs, etc.
 
-## 🚀 Usage
+## Usage
 
 ### Quick Start - Full Pipeline
 ```bash
@@ -142,15 +142,15 @@ The pipeline behavior is controlled by `config.json`:
 }
 ```
 
-## 📊 Pipeline Stages
+## Pipeline Stages
 
 ### 1. **Data Extraction** (`extraction.py`)
 **Enhancements:**
-- ✅ Retry logic with exponential backoff
-- ✅ Comprehensive HTTP error handling
-- ✅ Request timeout management
-- ✅ Rate limiting compliance
-- ✅ Progress tracking with logging
+- Retry logic with exponential backoff
+- Comprehensive HTTP error handling
+- Request timeout management
+- Rate limiting compliance
+- Progress tracking with logging
 
 **API Error Handling:**
 - `401 Unauthorized`: Invalid API key validation
@@ -161,11 +161,11 @@ The pipeline behavior is controlled by `config.json`:
 
 ### 2. **Data Cleaning** (`cleaning.py`)
 **Enhancements:**
-- ✅ Input validation before processing
-- ✅ Column presence checking
-- ✅ Data type validation with error tracking
-- ✅ Comprehensive logging of all transformations
-- ✅ Quality score calculation
+- Input validation before processing
+- Column presence checking
+- Data type validation with error tracking
+- Comprehensive logging of all transformations
+- Quality score calculation
 
 **Design Rationale:**
 - **ROI Threshold ($10M)**: Movies below this often have unreliable budget reporting
@@ -174,10 +174,10 @@ The pipeline behavior is controlled by `config.json`:
 
 ### 3. **KPI Calculation** (`KPI.py`)
 **Enhancements:**
-- ✅ Safe division with zero-handling
-- ✅ Outlier detection for data quality
-- ✅ Comprehensive input validation
-- ✅ Detailed calculation logging
+- Safe division with zero-handling
+- Outlier detection for data quality
+- Comprehensive input validation
+- Detailed calculation logging
 
 **KPI Metrics:**
 - **Profit**: `Revenue - Budget` (in millions USD)
@@ -186,17 +186,17 @@ The pipeline behavior is controlled by `config.json`:
 
 ### 4. **Analysis** (`filtering.py`)
 **Enhancements:**
-- ✅ Null value handling in filtering operations
-- ✅ Case-insensitive string matching
-- ✅ Error recovery for edge cases
+- Null value handling in filtering operations
+- Case-insensitive string matching
+- Error recovery for edge cases
 
 ### 5. **Visualization** (`visualization.py`)
 **Enhancements:**
-- ✅ Individual plot error handling
-- ✅ Graceful degradation if visualization fails
-- ✅ Optional execution (pipeline continues without visuals)
+- Individual plot error handling
+- Graceful degradation if visualization fails
+- Optional execution (pipeline continues without visuals)
 
-## 📈 Key Features
+## Key Features
 
 ### Error Recovery
 - **Skip existing files**: Resume from any pipeline stage
@@ -215,7 +215,7 @@ The pipeline behavior is controlled by `config.json`:
 - **Type safety**: Type hints throughout codebase
 - **Error handling**: Specific exception types with detailed messages
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -248,7 +248,7 @@ Solution: Check raw data quality; adjust high_nan_threshold in config
 - **Log File**: `tmdb_pipeline.log` in project root
 - **Console Output**: Real-time progress and errors
 
-## 📋 Design Decisions & Rationale
+##  Design Decisions & Rationale
 
 ### ROI Analysis Threshold ($10M)
 **Why this threshold?**
@@ -271,7 +271,7 @@ Solution: Check raw data quality; adjust high_nan_threshold in config
 - Production systems need graceful degradation
 - Debugging requires detailed error information
 
-## 🔄 Pipeline Execution Flow
+## Pipeline Execution Flow
 
 ```mermaid
 graph TD
@@ -296,7 +296,7 @@ graph TD
     N --> O[Log Error & Continue]
 ```
 
-## 📊 Sample Output
+## Sample Output
 
 ```
 🎬 TMDB Movie Analysis Pipeline
@@ -311,21 +311,21 @@ graph TD
 ==================================================
 TMDB MOVIE PIPELINE - EXECUTION SUMMARY
 ==================================================
-📊 Movies Extracted: 17
-🧹 Movies After Cleaning: 17
-✅ Data Quality Score: 87.3%
-📈 Movies with KPI Data: 17
+Movies Extracted: 17
+Movies After Cleaning: 17
+Data Quality Score: 87.3%
+Movies with KPI Data: 17
 
-📋 ANALYSIS HIGHLIGHTS:
+ANALYSIS HIGHLIGHTS:
    • Highest Revenue Movie: Avatar: The Way of Water with $2,320.25 million
    • Highest ROI Movie: The Avengers with an ROI of 4.23x
    • Most Popular Movie: Black Panther with popularity score of 547.49
 
-⏱️  Total Execution Time: 12.34 seconds
+Total Execution Time: 12.34 seconds
 ==================================================
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -333,10 +333,3 @@ TMDB MOVIE PIPELINE - EXECUTION SUMMARY
 4. Update documentation
 5. Submit a pull request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-**Note**: This enhanced pipeline addresses all feedback points regarding error handling, documentation, modularization, and production readiness while maintaining the original functionality.
