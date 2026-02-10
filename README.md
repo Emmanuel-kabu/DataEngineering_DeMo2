@@ -2,7 +2,7 @@
 
 A comprehensive Python data pipeline for extracting, cleaning, analyzing, and visualizing The Movie Database (TMDB) movie data.
 
-## 📋 Project Overview
+## Project Overview
 
 This project extracts movie data from TMDB API, performs data cleaning and transformation, calculates KPIs (profit, ROI), and provides analytical insights on movies, franchises, directors, and actors.
 
@@ -13,7 +13,7 @@ This project extracts movie data from TMDB API, performs data cleaning and trans
 - **Advanced Analytics** — Franchise analysis, director rankings, actor filtering
 - **Data Visualization** — Generate visual reports and insights
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 TMDB_movies_project/
@@ -35,7 +35,7 @@ TMDB_movies_project/
 └── README.md                  # This file
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Python 3.8+
@@ -99,7 +99,7 @@ python scripts/filtering.py
 python scripts/visualization.py
 ```
 
-## 📊 Data Pipeline
+## Data Pipeline
 
 ### Extraction (`extraction.py`)
 - Fetches movie data from TMDB API
@@ -130,7 +130,7 @@ python scripts/visualization.py
 - Creates charts and plots
 - Generates visual reports
 
-## 🔧 Main Classes
+##  Main Classes
 
 ### `TMDBExtractor` (extraction.py)
 Fetches movie data from TMDB API.
@@ -160,7 +160,7 @@ analyzer = MovieAnalyzer(kpi_df)
 report = analyzer.full_report()
 ```
 
-## 📦 Dependencies
+## Dependencies
 
 See `requirements.txt` for full list. Key packages:
 - **pandas** — Data manipulation
@@ -168,25 +168,25 @@ See `requirements.txt` for full list. Key packages:
 - **numpy** — Numerical operations
 - **python-dotenv** — Environment variable management
 
-## 🔐 Security & Best Practices
+## Security & Best Practices
 
 ### Before Pushing to Production
 
-✅ **Secrets & API Keys**
+**Secrets & API Keys**
 - Never commit `.env` files or API keys
 - Use environment variables for sensitive data
 - Rotate API keys regularly
 
-✅ **Data Privacy**
+**Data Privacy**
 - Exclude raw data files (`*.csv`, `*.json`)
 - Be mindful of personal data in cast/crew fields
 
-✅ **Code Quality**
+**Code Quality**
 - Run tests before committing
 - Follow PEP 8 style guidelines
 - Use type hints where appropriate
 
-✅ **Dependencies**
+**Dependencies**
 - Keep `requirements.txt` updated
 - Regularly update dependencies for security patches
 
@@ -201,7 +201,7 @@ The `.gitignore` file excludes:
 - API keys and credentials
 - Temporary files and logs
 
-## 📝 Example Output
+## Example Output
 
 ### KPI Summary
 ```
@@ -221,21 +221,21 @@ Top Director by Revenue:
   Anthony and Joe Russo 3457.65M USD
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Create a feature branch: `git checkout -b feature/your-feature`
 2. Commit changes: `git commit -am 'Add feature'`
 3. Push to branch: `git push origin feature/your-feature`
 4. Submit a Pull Request
 
-## ⚠️ Important Notes
+## Important Notes
 
 - **API Rate Limits** — TMDB API has rate limits. Implement delays between requests for large datasets.
 - **Data Freshness** — Movie data changes regularly. Re-run extraction periodically.
 - **Movie IDs** — Update `movie_ids` list in `extraction.py` based on your analysis needs.
 
 
-## 📧 Contact
+## Contact
 kabuemmanuel7@icloud.com
 
 For questions or issues, please open a GitHub issue or contact the project maintainer.
